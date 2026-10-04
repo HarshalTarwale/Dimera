@@ -29,8 +29,8 @@ export default function Hero({ onReserve }: { onReserve: () => void }) {
           className="relative h-full w-full"
         >
           <Image
-            src="/images/hero-silk.jpg"
-            alt="Flowing silk in rose-gold light"
+            src="/images/hero-manicure-table.jpg"
+            alt="A nail artist painting a client’s nails in soft nude polish at a sunlit table"
             fill
             priority
             quality={90}
