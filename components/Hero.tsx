@@ -1,9 +1,28 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
+import { getImageProps } from "next/image";
 import { motion, useScroll, useTransform } from "motion/react";
 import { ease } from "@/lib/data";
+
+// Art direction: a portrait photo on phones, a wide one from tablet up.
+const {
+  props: { srcSet: desktopSrcSet },
+} = getImageProps({
+  src: "/images/hero-manicure-table.jpg",
+  alt: "",
+  fill: true,
+  quality: 90,
+  sizes: "100vw",
+});
+const { props: mobileImg } = getImageProps({
+  src: "/images/hero-mobile-salon.jpg",
+  alt: "A calm beauty ritual in a sunlit, ivory-toned salon",
+  fill: true,
+  priority: true,
+  quality: 90,
+  sizes: "100vw",
+});
 
 export default function Hero({ onReserve }: { onReserve: () => void }) {
   const ref = useRef<HTMLElement>(null);
@@ -26,17 +45,12 @@ export default function Hero({ onReserve }: { onReserve: () => void }) {
           initial={{ scale: 1.18 }}
           animate={{ scale: 1 }}
           transition={{ duration: 8, ease: "easeOut" }}
-          className="relative h-full w-full"
+          className="relative h-full w-full max-md:top-[16%] max-md:[mask-image:linear-gradient(to_bottom,transparent,black_24%)]"
         >
-          <Image
-            src="/images/hero-manicure-table.jpg"
-            alt="A nail artist painting a client’s nails in soft nude polish at a sunlit table"
-            fill
-            priority
-            quality={90}
-            sizes="100vw"
-            className="object-cover"
-          />
+          <picture>
+            <source media="(min-width: 768px)" srcSet={desktopSrcSet} />
+            <img {...mobileImg} alt={mobileImg.alt} className="object-cover" />
+          </picture>
         </motion.div>
         <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/10 to-background" />
       </motion.div>
